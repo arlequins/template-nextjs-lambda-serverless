@@ -35,7 +35,7 @@ runs:
       shell: bash
 
     - name: Set custom environment variable
-      run: echo "DEPLOY_BUCKET=${{ fromJson(steps.read_service.outputs.service) }}-${{ inputs.environment }}-${{ env.SECRET_INFRA_AWS_IDENTIFIER }}" >> $GITHUB_ENV
+      run: echo "DEPLOY_BUCKET=${{ steps.read_service.outputs.service }}-${{ inputs.environment }}-${{ env.SECRET_INFRA_AWS_IDENTIFIER }}" >> $GITHUB_ENV
       shell: bash
 
     - name: npm ci
