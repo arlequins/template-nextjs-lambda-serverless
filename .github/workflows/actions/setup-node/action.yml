@@ -27,16 +27,10 @@ runs:
         envkey_AWS_IDENTIFIER: ${{ env.SECRET_INFRA_AWS_IDENTIFIER }}
         envkey_AWS_CLOUDFRONT_WAF_NAME: ${{ env.SECRET_INFRA_AWS_CLOUDFRONT_WAF_NAME }}
 
-    - name: Install yq
-      run: |
-        sudo wget -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-        sudo chmod +x /usr/local/bin/yq
-      shell: bash
-
     - name: Read service name from serverless.yml
       id: read_service
       run: |
-        SERVICE_NAME=$(yq '.service' serverless.yml)
+        SERVICE_NAME=$(grep '^service:' serverless.yml | awk '{print $2}' | tr -d '"')
         echo "service=$SERVICE_NAME" >> $GITHUB_OUTPUT
       shell: bash
 
