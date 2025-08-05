@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/",
+    "postbuild": "mkdir -p images/nodejs-lambda-container/out/ && cp -r .next/standalone/ images/nodejs-lambda-container/out/ && cp -r public images/nodejs-lambda-container/out/ && cp -r .next/static images/nodejs-lambda-container/out/.next/",
     "start": "next start",
     "lint": "next lint",
     "deploy:develop": "npm run build && serverless deploy --stage develop",

@@ -41,4 +41,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.open-next
+# images
+/images/nodejs-lambda-container/out
