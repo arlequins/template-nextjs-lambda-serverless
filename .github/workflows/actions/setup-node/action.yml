@@ -25,7 +25,7 @@ runs:
       with:
         envkey_NEXT_PUBLIC_ENVIRONMENT: ${{ inputs.environment }}
         envkey_AWS_IDENTIFIER: ${{ env.SECRET_INFRA_AWS_IDENTIFIER }}
-        envkey_AWS_CLOUDFRONT_WAF_NAME: ${{ env.SECRET_INFRA_AWS_CLOUDFRONT_WAF_NAME }}
+        envkey_AWS_CLOUDFRONT_WAF_ARN: ${{ env.SECRET_INFRA_AWS_CLOUDFRONT_WAF_ARN }}
 
     - name: Read service name from serverless.yml
       id: read_service

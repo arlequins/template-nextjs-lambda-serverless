@@ -6,7 +6,7 @@ Properties:
     # Aliases: - custom domain
     #   - ${param:DOMAIN_ALIASES}
     PriceClass: PriceClass_100
-    WebACLId: ${param:AWS_CLOUDFRONT_WAF_NAME}
+    WebACLId: ${param:AWS_CLOUDFRONT_WAF_ARN}
     Origins:
       - Id: ServerOrigin
         DomainName: !GetAtt ServerLambdaFunctionUrl.FunctionUrl
