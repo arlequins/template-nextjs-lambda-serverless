@@ -3,12 +3,16 @@ Properties:
   DistributionConfig:
     Enabled: true
     HttpVersion: http2and3
-    Aliases:
-      - ${param:DOMAIN_ALIASES}
+    # Aliases: - custom domain
+    #   - ${param:DOMAIN_ALIASES}
     PriceClass: PriceClass_100
     WebACLId: ${param:AWS_CLOUDFRONT_WAF_NAME}
     Origins:
-      - Id: ${self:custom.bucketName}
+      - Id: ServerOrigin
+        DomainName: !GetAtt ServerLambdaFunctionUrl.FunctionUrl
+        CustomOriginConfig:
+          OriginProtocolPolicy: https-only
+      - Id: S3Origin
         DomainName:
           Fn::Join:
             - "."
@@ -20,16 +24,29 @@ Properties:
           Ref: OriginAccessControl
         S3OriginConfig:
           OriginAccessIdentity: ""
+
+    # default to lambda
     DefaultCacheBehavior:
-      TargetOriginId: ${self:custom.bucketName}
-      ViewerProtocolPolicy: https-only
-      ForwardedValues:
-        QueryString: false
+      TargetOriginId: ServerOrigin
+      ViewerProtocolPolicy: redirect-to-https
+      CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad # CachingDisabled
+      OriginRequestPolicyId: b689b0a8-53d0-40ab-baf2-68738e2966ac # AllViewer
       FunctionAssociations:
-        - EventType: viewer-request
-          FunctionARN: !GetAtt CloudFrontFunctionRequest.FunctionARN
         - EventType: viewer-response
           FunctionARN: !GetAtt CloudFrontFunctionResponse.FunctionARN
+      
+    # statics
+    CacheBehaviors:
+      - PathPattern: _next/image*
+        TargetOriginId: S3Origin
+        ViewerProtocolPolicy: redirect-to-https
+        CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized
+
+      - PathPattern: _next/static/*
+        TargetOriginId: S3Origin
+        ViewerProtocolPolicy: redirect-to-https
+        CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized
+
     CustomErrorResponses:
       - ErrorCode: 403
         ResponsePagePath: /404.html
@@ -39,7 +56,7 @@ Properties:
         ResponsePagePath: /404.html
         ResponseCode: 404
         ErrorCachingMinTTL: 300
-    ViewerCertificate:
-      AcmCertificateArn: ${param:AWS_ACM_CERTIFICATION_ARN}
-      SslSupportMethod: sni-only
-      MinimumProtocolVersion: TLSv1.2_2021
+    # ViewerCertificate: - custom domain
+    #   AcmCertificateArn: ${param:AWS_ACM_CERTIFICATION_ARN}
+    #   SslSupportMethod: sni-only
+    #   MinimumProtocolVersion: TLSv1.2_2021

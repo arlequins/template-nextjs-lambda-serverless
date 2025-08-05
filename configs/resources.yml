@@ -34,11 +34,6 @@ Resources:
         SigningBehavior: always
         SigningProtocol: sigv4
   Distribution: ${file(configs/distribution.yml)}
-  # no custom domain
-  # Distribution: ${file(configs/distribution.default.yml)}
-  CloudFrontFunctionRequest: ${file(configs/functions-request.${sls:stage}.yml)}
-  # basic auth
-  # CloudFrontFunctionRequest: ${file(configs/functions-request-basic-auth.${sls:stage}.yml)}
   CloudFrontFunctionResponse: ${file(configs/functions-response.yml)}
 
 Outputs:
