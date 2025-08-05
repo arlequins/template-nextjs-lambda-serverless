@@ -1,4 +1,4 @@
-service: template-nextjs-serverless
+service: tnls
 
 frameworkVersion: "3"
 
@@ -24,6 +24,16 @@ custom:
   bucketName: ${self:service}-${sls:stage}-${param:AWS_IDENTIFIER}
   s3Sync:
     - bucketName: ${self:custom.bucketName}
-      localDir: out/
+      localDir: .next/standalone/
 
 resources: ${file(configs/resources.yml)}
+
+functions:
+  server:
+    url: true
+    image:
+      name: nodejs-lambda-container
+    memorySize: 1024
+    timeout: 120
+    environment:
+      AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
