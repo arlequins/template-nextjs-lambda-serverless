@@ -10,8 +10,6 @@ interface CustomErrorProps {
 
 const styles: { [key: string]: React.CSSProperties } = {
   error: {
-    // This is the source of the default style you see in Next.js' errors
-    // https://github.com/vercel/next.js/blob/canary/packages/next/src/client/components/error-boundary.tsx
     fontFamily:
       'system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
     height: '100vh',
@@ -20,6 +18,9 @@ const styles: { [key: string]: React.CSSProperties } = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'var(--custom-error-bg, #fff)',
+    color: 'var(--custom-error-text, #222)',
+    transition: 'background-color 0.2s, color 0.2s',
   },
   h1: {
     display: 'inline-block',
@@ -29,7 +30,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontWeight: 500,
     verticalAlign: 'top',
     lineHeight: '49px',
-    borderRight: '1px solid rgba(255,255,255,.3)',
+    borderRight: '1px solid var(--custom-error-border, rgba(0,0,0,.1))',
   },
   h2: {
     fontSize: '14px',
@@ -37,8 +38,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     lineHeight: '49px',
     margin: 0,
   },
-}
-
+};
 
 // --- A helper object to store default messages for common error codes ---
 const errorMessages: { [key: number]: { title: string; message: string } } = {
@@ -46,17 +46,9 @@ const errorMessages: { [key: number]: { title: string; message: string } } = {
     title: '400 Bad Request',
     message: 'The request is invalid or cannot be processed.',
   },
-  401: {
-    title: '401 Unauthorized',
-    message: 'You need to log in to access this page.',
-  },
   403: {
     title: '403 Forbidden',
     message: 'You do not have permission to access this page.',
-  },
-  500: {
-    title: '500 Internal Server Error',
-    message: 'An internal server error occurred. Please try again later.',
   },
 };
 
