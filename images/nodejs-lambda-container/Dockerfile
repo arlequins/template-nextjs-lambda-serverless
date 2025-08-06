@@ -3,7 +3,7 @@ FROM node:22-slim AS runner
 WORKDIR /app
 
 # Copy pre-built Next.js standalone output and static assets from host
-COPY out ./
+COPY out .
 
 # Stage 2: Get AWS Lambda Web Adapter
 FROM public.ecr.aws/awsguru/aws-lambda-adapter:0.9.0 AS adapter

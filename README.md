@@ -2,7 +2,7 @@
 
 template for nextjs using serverless framework v3
 
-website(cloudfront + lambda)
+website(cloudfront + lambda + s3)
 
 **This repository is a template. Do not store any real secrets or credentials in the codebase. All sensitive information (API keys, tokens, credentials, etc.) must be managed via environment variables or secret managers.**
 
@@ -12,13 +12,6 @@ website(cloudfront + lambda)
 
 ```
 "node": ">=22.x"
-```
-
-### build
-
-```
-cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/
-node .next/standalone/server.js
 ```
 
 ## release command
