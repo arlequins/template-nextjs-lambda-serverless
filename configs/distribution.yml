@@ -65,10 +65,6 @@ Properties:
         ResponsePagePath: /400
         ResponseCode: 400
         ErrorCachingMinTTL: 300
-      - ErrorCode: 401
-        ResponsePagePath: /401
-        ResponseCode: 401
-        ErrorCachingMinTTL: 300
       - ErrorCode: 403
         ResponsePagePath: /403
         ResponseCode: 403
