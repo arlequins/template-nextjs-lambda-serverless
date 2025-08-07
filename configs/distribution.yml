@@ -9,7 +9,14 @@ Properties:
     WebACLId: ${param:AWS_CLOUDFRONT_WAF_ARN}
     Origins:
       - Id: ServerOrigin
-        DomainName: !GetAtt ServerLambdaFunctionUrl.FunctionUrl
+        DomainName:
+          # The !GetAtt returns a full URL like "https://abcdef.lambda-url.region.on.aws/"
+          # We need to split it by "/" and select the 3rd element (index 2)
+          Fn::Select:
+            - 2
+            - Fn::Split:
+                - "/"
+                - Fn::GetAtt: ServerLambdaFunctionUrl.FunctionUrl
         CustomOriginConfig:
           OriginProtocolPolicy: https-only
       - Id: S3Origin
@@ -37,24 +44,38 @@ Properties:
       
     # statics
     CacheBehaviors:
-      - PathPattern: _next/image*
+      - PathPattern: /_next/static/*
         TargetOriginId: S3Origin
         ViewerProtocolPolicy: redirect-to-https
         CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized
-
-      - PathPattern: _next/static/*
+        Compress: true
+      - PathPattern: /_next/image/*
         TargetOriginId: S3Origin
         ViewerProtocolPolicy: redirect-to-https
         CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized
+        Compress: true
+      - PathPattern: /static/*
+        TargetOriginId: S3Origin
+        ViewerProtocolPolicy: redirect-to-https
+        CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized
+        Compress: true
 
     CustomErrorResponses:
+      - ErrorCode: 400
+        ResponsePagePath: /400
+        ResponseCode: 400
+        ErrorCachingMinTTL: 300
       - ErrorCode: 403
-        ResponsePagePath: /404.html
-        ResponseCode: 404
+        ResponsePagePath: /403
+        ResponseCode: 403
         ErrorCachingMinTTL: 300
       - ErrorCode: 404
-        ResponsePagePath: /404.html
+        ResponsePagePath: /404
         ResponseCode: 404
+        ErrorCachingMinTTL: 300
+      - ErrorCode: 500
+        ResponsePagePath: /500
+        ResponseCode: 500
         ErrorCachingMinTTL: 300
     # ViewerCertificate: - custom domain
     #   AcmCertificateArn: ${param:AWS_ACM_CERTIFICATION_ARN}

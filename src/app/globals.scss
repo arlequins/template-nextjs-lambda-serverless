@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --custom-error-bg: #fff;
+  --custom-error-text: #222;
+  --custom-error-border: rgba(0,0,0,.1);
 }
 
 @theme inline {
@@ -16,6 +19,9 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --custom-error-bg: #18181b;
+    --custom-error-text: #fafafa;
+    --custom-error-border: rgba(255,255,255,.2);
   }
 }
 
