@@ -14,6 +14,20 @@ website(cloudfront + lambda + s3)
 "node": ">=22.x"
 ```
 
+## ui
+
+- [Next.js](https://nextjs.org/docs)
+- [shadcn/ui](https://ui.shadcn.com/)
+  - [components](https://ui.shadcn.com/docs/components)
+- [Radix UI](https://www.radix-ui.com/)
+- [v0.app](https://v0.app/)
+
+### add components
+```
+npx shadcn@latest init
+npx shadcn@latest add button
+```
+
 ## release command
 
 init: `git flow init`

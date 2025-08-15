@@ -1,6 +1,6 @@
 'use client'; // Error components must be Client Components
 
-import { CustomError } from '@/libs/components/templates/CustomError';
+import { CustomError } from '@/components/organisms/CustomError';
 import { useEffect } from 'react';
 
 export default function GlobalError({

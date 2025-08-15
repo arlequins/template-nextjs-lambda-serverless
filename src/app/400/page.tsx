@@ -1,6 +1,6 @@
 'use client';
 
-import { CustomError } from "@/libs/components/templates/CustomError";
+import { CustomError } from "@/components/organisms/CustomError";
 
 export default function Page() {
   return <CustomError statusCode={400} />;
