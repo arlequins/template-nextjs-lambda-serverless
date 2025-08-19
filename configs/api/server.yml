@@ -1,0 +1,8 @@
+image:
+  name: nodejs-lambda-container
+memorySize: 1024
+timeout: 120
+environment:
+  AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+  PORT: 3000
+  KEEP_ALIVE_TIMEOUT: 10

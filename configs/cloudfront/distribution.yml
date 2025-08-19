@@ -19,6 +19,8 @@ Properties:
                 - Fn::GetAtt: ServerLambdaFunctionUrl.FunctionUrl
         CustomOriginConfig:
           OriginProtocolPolicy: https-only
+          OriginKeepaliveTimeout: 5
+          OriginReadTimeout: 115
       - Id: S3Origin
         DomainName:
           Fn::Join:
