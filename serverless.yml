@@ -15,6 +15,7 @@ provider:
     name: ${self:service}-${sls:stage}-s3-serverless-${param:AWS_IDENTIFIER}
     serverSideEncryption: AES256
     blockPublicAccess: true
+  ecr: ${file(configs/images.yml)}
 
 plugins:
   - serverless-s3-sync
@@ -29,12 +30,4 @@ custom:
 resources: ${file(configs/resources.yml)}
 
 functions:
-  server:
-    url: true
-    image:
-      name: nodejs-lambda-container
-    memorySize: 1024
-    timeout: 120
-    environment:
-      AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
-      AWS_LWA_PORT: 3000
+  server: ${file(configs/api/server.yml)}

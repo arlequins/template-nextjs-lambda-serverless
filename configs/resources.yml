@@ -34,7 +34,7 @@ Resources:
         SigningBehavior: always
         SigningProtocol: sigv4
   Distribution: ${file(configs/distribution.yml)}
-  CloudFrontFunctionResponse: ${file(configs/functions-response.yml)}
+  # CloudFrontFunctionResponse: ${file(configs/functions-response.yml)}
 
 Outputs:
   URL:
